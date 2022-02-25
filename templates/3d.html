@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .logo {
+            text-align: center;
+            margin-top: 100px;
+        }
+        @-webkit-keyframes rotation {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        .Rotation {
+            -webkit-transform: rotate(360deg);
+            animation: rotation 16s linear infinite;
+            -moz-animation: rotation 1s linear infinite;
+            -webkit-animation: rotation 1s linear infinite;
+            -o-animation: rotation 1s linear infinite;
+        }
+
+        .img {
+            border-radius: 200px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="logo">
+    <img class="Rotation img" src="http://cdn.jingqueyun.com/turntable/image/theme/theme2/turntable-outer-bg2.png" width="128" height="128"/>
+</div>
+</body>
+</html>

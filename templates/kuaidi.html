@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ActiveReports for JavaScript sample</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css">
+
+    <script src="/activereportsjs/demos/arjs/dist/ie-polyfills.js"></script>
+    <script src="/activereportsjs/demos/arjs/dist/ar-js-core.js"></script>
+    <script src="/activereportsjs/demos/arjs/dist/ar-js-viewer.js"></script>
+
+    <script src="/activereportsjs/demos/arjs/dist/ar-js-pdf.js"></script>
+    <script src="/activereportsjs/demos/arjs/dist/ar-js-html.js"></script>
+    <script src="/activereportsjs/demos/arjs/dist/ar-js-xlsx.js"></script>
+
+    <script src="/activereportsjs/demos/arjs-localization/dist/ar-js-locales.js"></script>
+    <script src="$DEMOROOT$/lib/purejs/license.js"></script>
+    <link     rel="stylesheet"     type="text/css"     href="/activereportsjs/demos/arjs/styles/ar-js-ui.css"  />
+    <link rel="stylesheet" type="text/css" href="/activereportsjs/demos/arjs/styles/ar-js-viewer.css">
+
+    <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+
+<body onload="load()">
+    <div class="container">
+        <div id="root"></div>
+        <div id="controls">
+            <div class="line">
+                <button id="export-pdf" onclick="runPdf()">导出PDF</button>
+            </div>
+            <div class="line">
+                <button id="export-excel" onclick="runExcel()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function load() {
+            viewer = new ActiveReports.Viewer('#root', {language: 'zh'});
+            viewer.registerFont("fonts/fontsConfig.json").then(function(){viewer.open("Quotation.rdlx-json")});
+        }
+
+        function runPdf() {
+            var ARJS = GC.ActiveReports.Core;
+            var PDF = GC.ActiveReports.PdfExport;
+
+            var settings = {
+                info: {
+                    title: '快递单',
+                    author: 'GrapeCity inc.',
+                },
+                pdfVersion:"1.7"
+            }
+            var pageReport = new ARJS.PageReport();
+            pageReport.load('Quotation.rdlx-json')
+                .then(function() { return pageReport.run() })
+                .then(function(pageDocument) { return PDF.exportDocument(pageDocument, settings) })
+                .then(function(result) { result.download('arjs-pdf') });
+        }
+
+        function runExcel() {
+            var ARJS = GC.ActiveReports.Core;
+            var Excel = GC.ActiveReports.XlsxExport;
+
+            var settings = {
+                sheetName: '快递单',
+                pageSettings: {
+                    size:'A4',
+                    orientation: 'portrait'
+                }
+            }
+
+            var pageReport = new ARJS.PageReport();
+            pageReport.load('Quotation.rdlx-json')
+                .then(function() { return pageReport.run() })
+                .then(function(pageDocument) { return Excel.exportDocument(pageDocument, settings) })
+                .then(function(result) { result.download('arjs-excel') });
+        }
+    </script>
+</body>
+</html>
