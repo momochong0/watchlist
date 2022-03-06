@@ -1,22 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask
+from flask_restful import Resource, Api
 
-# ...
-app=Flask(__name__)
+app = Flask(__name__)
+api = Api(app)
 
 
-@app.route('/')
-def index():
-    name = 'Grey Li'
-    movies = [
-        {'title': 'My Neighbor Totoro', 'year': '1988'},
-        {'title': 'Dead Poets Society', 'year': '1989'},
-        {'title': 'A Perfect World', 'year': '1993'},
-        {'title': 'Leon', 'year': '1994'},
-        {'title': 'Mahjong', 'year': '1996'},
-        {'title': 'Swallowtail Butterfly', 'year': '1996'},
-        {'title': 'King of Comedy', 'year': '1999'},
-        {'title': 'Devils on the Doorstep', 'year': '1999'},
-        {'title': 'WALL-E', 'year': '2008'},
-        {'title': 'The Pork of Music', 'year': '2012'},
-    ]
-    return render_template('index.html', name=name, movies=movies)
+class Config(object):
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@127.0.0.1:3306/toutiao'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = True
+
+class HelloWorldResource(Resource):
+
+    def get(self):
+        return {'hello': 'world'}
+
+    def post(self):
+        return {'msg': 'post hello world'}
+
+
+api.add_resource(HelloWorldResource, '/', endpoint="HelloWorld")
+app.config.from_object(Config)
+
+# 此处启动对于1.0之后的Flask可有可无
+if __name__ == '__main__':
+    app.run(debug=True)
