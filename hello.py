@@ -22,4 +22,5 @@ class HelloWorldResource(Resource):
 @app.route('/index')
 @app.route('/home')
 def hello():
-    return 'Welcome to My Watchlist!'
+    print('hello')
+    return 'Hello! Welcome to My Watchlist!'
