@@ -10,17 +10,21 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
 
-class HelloWorldResource(Resource):
+# class HelloWorldResource(Resource):
 
-    def get(self):
-        return {'hello': 'world'}
+#     def get(self):
+#         return {'hello': 'world'}
 
-    def post(self):
-        return {'msg': 'post hello world'}
+#     def post(self):
+#         return {'msg': 'post hello world'}
 
 
-api.add_resource(HelloWorldResource, '/', endpoint="HelloWorld")
+# api.add_resource(HelloWorldResource, '/', endpoint="HelloWorld")
 app.config.from_object(Config)
+
+@app.route('/home')
+def hello():
+    return '<h1>Hello Totoro!</h1><img src="http://helloflask.com/totoro.gif">'
 
 # 此处启动对于1.0之后的Flask可有可无
 if __name__ == '__main__':
