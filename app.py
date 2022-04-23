@@ -1,12 +1,12 @@
 from flask import Flask,escape,url_for
 app=Flask(__name__)
-
-@app.route('/home')
+@app.route('/')
+# @app.route('/home')
 def hello():
     return '<h1>Hello Totoro!</h1><img src="http://helloflask.com/totoro.gif">'
 
 @app.route('/user/<name>')
-def user(name):
+def user_page(name):
     return 'hello %s' % escape(name)
 
 @app.route('/test')
