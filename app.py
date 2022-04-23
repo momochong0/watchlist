@@ -1,31 +1,22 @@
-from flask import Flask
-from flask_restful import Resource, Api
-
-app = Flask(__name__)
-api = Api(app)
-
-
-class Config(object):
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@127.0.0.1:3306/toutiao'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
-
-# class HelloWorldResource(Resource):
-
-#     def get(self):
-#         return {'hello': 'world'}
-
-#     def post(self):
-#         return {'msg': 'post hello world'}
-
-
-# api.add_resource(HelloWorldResource, '/', endpoint="HelloWorld")
-app.config.from_object(Config)
+from flask import Flask,escape,url_for
+app=Flask(__name__)
 
 @app.route('/home')
 def hello():
     return '<h1>Hello Totoro!</h1><img src="http://helloflask.com/totoro.gif">'
 
-# 此处启动对于1.0之后的Flask可有可无
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/user/<name>')
+def user(name):
+    return 'hello %s' % escape(name)
+
+@app.route('/test')
+def test_url_for():
+    # 下面是一些调用示例（请在命令行窗口查看输出的 URL）：
+    print(url_for('hello'))  # 输出：/
+    # 注意下面两个调用是如何生成包含 URL 变量的 URL 的
+    print(url_for('user_page', name='greyli'))  # 输出：/user/greyli
+    print(url_for('user_page', name='peter'))  # 输出：/user/peter
+    print(url_for('test_url_for'))  # 输出：/test
+    # 下面这个调用传入了多余的关键字参数，它们会被作为查询字符串附加到 URL 后面。
+    print(url_for('test_url_for', num=2))  # 输出：/test?num=2
+    return 'Test page'
