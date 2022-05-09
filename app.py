@@ -94,3 +94,19 @@ def page_not_found(e):
 def index():
     movies = Movie.query.all()
     return render_template('index.html', movies=movies)
+
+# 标题接口
+# /v7/gk/count/title，返回总人数1、未采集1、上网成功0
+#
+# 饼状图接口
+# /v7/gk/count/state，这个接口，返回未采集人数0，上网成功人数2
+#
+# 另外：
+# 饼状图接口取数据的状态，后来调整过一次
+# 上网成功
+# 未采集
+# 上网中
+# 上网失败
+# 采集中(其他)
+#
+# 其中：采集中(其他)指除了上网中以外的所有采集中的状态
