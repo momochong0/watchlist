@@ -37,11 +37,11 @@ class Movie(db.Model):  # 表名将会是 movie
 @app.cli.command()
 @click.option('--drop', is_flag=True, help='删除表后重新创建')
 def initdb(drop):
-    """创建数据库表"""
+    """Initialized database."""
     if drop:
         db.drop_all()
     db.create_all()
-    click.echo('创建数据库表')
+    click.echo('Initialized database.')
 
 
 # @app.route('/')
