@@ -1,0 +1,4 @@
+# class Config:
+#     DEBUG = True
+#     SQLALCHEMY_TRACK_MODIFICATIONS = False
+#     SQLALCHEMY_COMMIT_TEARDOWN = True
